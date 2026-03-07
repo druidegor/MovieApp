@@ -1,0 +1,11 @@
+.python-version
+.venv
+.env
+alembic/versions/*.pyc
+app/models/__pycache__/users.cpython-313.pyc
+app/core/__pycache__/config.cpython-313.pyc
+*.log
+__pycache__/
+*.pyc
+*.py[cod]
+*$py.class
