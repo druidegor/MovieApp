@@ -1,6 +1,5 @@
-package com.mleval.movie.ui.theme
+package com.mleval.movie.presentation.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
@@ -12,15 +11,21 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = Red,
+    background = Black,
+    surface = Black
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = Red,
+    background = Black,
+    secondary = Grey600,
+    surface = Black,
+    onSurface = White,
+    onSurfaceVariant = Grey400,
+    onTertiary = Grey200,
+    onBackground = Grey300,
+    onTertiaryFixed = White200
 
     /* Other default colors to override
     background = Color(0xFFFFFBFE),
@@ -35,9 +40,9 @@ private val LightColorScheme = lightColorScheme(
 
 @Composable
 fun MovieTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = false,
     // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    dynamicColor: Boolean = false,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

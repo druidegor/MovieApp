@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Movie</string>
+    <string name="sing_in">Sing In</string>
+    <string name="skip">Skip</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="or">or</string>
+    <string name="don_t_you_have_an_account">Don\'t you have an account?</string>
+    <string name="sing_up">Sing Up</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="sign_in">Sign In</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="email_can_t_be_empty">Email can\'t be empty</string>
+    <string name="incorrect_email">Incorrect email</string>
+    <string name="minimum_8_characters">Minimum 8 characters</string>
 </resources>

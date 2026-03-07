@@ -2,4 +2,10 @@
 <resources>
 
     <style name="Theme.Movie" parent="android:Theme.Material.Light.NoActionBar" />
+    
+    <style name="Theme.Movie.SplashScreen" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/red </item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground </item>
+        <item name="postSplashScreenTheme">@style/Theme.Movie </item>
+    </style>
 </resources>
