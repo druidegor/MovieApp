@@ -57,6 +57,7 @@ android {
 
 dependencies {
 
+    implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.datastore.preferences)
     ksp(libs.hilt.android.compiler)
     implementation(libs.converter.kotlinx.serialization)

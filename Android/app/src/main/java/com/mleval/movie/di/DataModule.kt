@@ -54,6 +54,7 @@ interface DataModule {
             return json.asConverterFactory("application/json".toMediaType())
         }
 
+
         @AuthRetrofit
         @Provides
         @Singleton

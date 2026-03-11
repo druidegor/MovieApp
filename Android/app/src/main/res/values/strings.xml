@@ -13,4 +13,15 @@
     <string name="email_can_t_be_empty">Email can\'t be empty</string>
     <string name="incorrect_email">Incorrect email</string>
     <string name="minimum_8_characters">Minimum 8 characters</string>
+    <string name="search_film">Search Film</string>
+    <string name="personal_account">Personal Account</string>
+    <string name="star">Star</string>
+    <string name="trending">Trending</string>
+    <string name="watch_film">Watch film</string>
+    <string name="trending_movies">Trending Movies</string>
+    <string name="popular_movies">Popular Movies</string>
+    <string name="top_rated_movies">Top Rated Movies</string>
+    <string name="heromovie_image">HeroMovie image</string>
+    <string name="film_image">Film Image</string>
+    <string name="play_movie">Play Movie</string>
 </resources>
