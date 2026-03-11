@@ -18,7 +18,17 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MovieTheme {
-                HomeScreen()
+                HomeScreen(
+                    onUserClick = {
+
+                    },
+                    onSearchClick = {
+
+                    },
+                    onMovieClick = {
+
+                    }
+                )
             }
         }
     }

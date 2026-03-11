@@ -24,4 +24,6 @@
     <string name="heromovie_image">HeroMovie image</string>
     <string name="film_image">Film Image</string>
     <string name="play_movie">Play Movie</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="retry">Retry</string>
 </resources>

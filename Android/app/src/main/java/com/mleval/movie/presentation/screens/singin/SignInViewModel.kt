@@ -24,6 +24,7 @@ class SingInViewModel @Inject constructor(
     private val _state = MutableStateFlow(SingInState())
     val state = _state.asStateFlow()
 
+
     fun processCommand(command: SingInCommand) {
             when(command) {
                 is SingInCommand.InputEmail -> {

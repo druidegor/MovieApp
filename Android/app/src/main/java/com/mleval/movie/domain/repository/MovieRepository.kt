@@ -9,4 +9,6 @@ interface MovieRepository {
     suspend fun getTrendingMovies(): List<Movie>
 
     suspend fun getTopRatedMovies(): List<Movie>
+
+    suspend fun getMovie(movieId: Int): Movie
 }

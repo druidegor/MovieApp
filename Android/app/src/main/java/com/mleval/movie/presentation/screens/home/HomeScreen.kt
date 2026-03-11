@@ -61,7 +61,10 @@ import com.mleval.movie.domain.entity.Movie
 
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = hiltViewModel()
+    viewModel: HomeViewModel = hiltViewModel(),
+    onUserClick: () -> Unit,
+    onSearchClick: () -> Unit,
+    onMovieClick: (Int) -> Unit
 ) {
 
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -71,10 +74,10 @@ fun HomeScreen(
            HomeTopAppBar(
                scrollBehavior = scrollBehavior,
                onSearchClick = {
-
+                    onSearchClick()
                },
                onAccountClick = {
-
+                    onUserClick()
                }
            )
        }
@@ -100,7 +103,8 @@ fun HomeScreen(
                     HomeContent(
                         modifier = Modifier.padding(innerPadding),
                         scrollBehavior = scrollBehavior,
-                        state = current
+                        state = current,
+                        onMovieClick = onMovieClick
                     )
 
                 }
@@ -112,7 +116,8 @@ fun HomeScreen(
 private fun HomeContent(
     modifier: Modifier = Modifier,
     scrollBehavior: TopAppBarScrollBehavior,
-    state: HomeScreenState.Success
+    state: HomeScreenState.Success,
+    onMovieClick: (Int) -> Unit
 ) {
     LazyColumn(
         modifier = modifier
@@ -124,11 +129,9 @@ private fun HomeContent(
     ) {
         item {
             HeroCard(
-                imageUrl = state.heroMovie.backdropPath,
-                title = state.heroMovie.title,
-                rating = state.heroMovie.rating.toString(),
-                onWatchClick = {
-
+                movie = state.heroMovie,
+                onMovieClick = { id ->
+                     onMovieClick(id)
                 }
             )
         }
@@ -136,21 +139,24 @@ private fun HomeContent(
         item {
             MovieSection(
                 title = stringResource(R.string.trending_movies),
-                movies = state.trendingMovies
+                movies = state.trendingMovies,
+                onMovieClick = onMovieClick
             )
         }
 
         item {
             MovieSection(
                 title = stringResource(R.string.popular_movies),
-                movies = state.popularMovies
+                movies = state.popularMovies,
+                onMovieClick = onMovieClick
             )
         }
 
         item {
             MovieSection(
                 title = stringResource(R.string.top_rated_movies),
-                movies = state.topRatedMovies
+                movies = state.topRatedMovies,
+                onMovieClick = onMovieClick
             )
         }
     }
@@ -211,10 +217,8 @@ private fun HomeTopAppBar(
 @Composable
 private fun HeroCard(
     modifier: Modifier = Modifier,
-    imageUrl: String,
-    title: String,
-    rating: String,
-    onWatchClick: () -> Unit
+    movie: Movie,
+    onMovieClick: (Int) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -229,7 +233,7 @@ private fun HeroCard(
                     .heightIn(max = 400.dp)
                     .clip(RoundedCornerShape(48.dp)),
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(imageUrl)
+                    .data(movie.backdropPath)
                     .crossfade(true)
                     .build(),
                 contentDescription = stringResource(R.string.heromovie_image),
@@ -259,7 +263,7 @@ private fun HeroCard(
                             color = MaterialTheme.colorScheme.onSurface
                         )
                         Text(
-                            text = title,
+                            text = movie.title,
                             fontWeight = FontWeight.SemiBold,
                             color = MaterialTheme.colorScheme.onSurface,
                             maxLines = 2,
@@ -267,7 +271,7 @@ private fun HeroCard(
                         )
                         Row {
                             Text(
-                                text = rating,
+                                text = movie.rating.toString(),
                                 fontWeight = FontWeight.Medium,
                                 color = MaterialTheme.colorScheme.onSurface
                             )
@@ -285,7 +289,7 @@ private fun HeroCard(
                             .size(60.dp)
                             .clip(CircleShape)
                             .clickable {
-                                onWatchClick()
+                                onMovieClick(movie.id)
                             }
                             .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.7f)),
                         contentAlignment = Alignment.Center
@@ -307,9 +311,8 @@ private fun HeroCard(
 @Composable
 private fun MovieCard(
     modifier: Modifier = Modifier,
-    imageUrl: String,
-    movieName: String,
-    onPlayClick: () -> Unit
+    movie: Movie,
+    onMovieClick: (Int) -> Unit
 ) {
     Column(
         modifier = modifier.width(160.dp),
@@ -321,7 +324,7 @@ private fun MovieCard(
                     .aspectRatio(2f / 3f)
                     .clip(RoundedCornerShape(39.dp)),
                 model = ImageRequest.Builder(LocalContext.current)
-                    .data(imageUrl)
+                    .data(movie.backdropPath)
                     .crossfade(true)
                     .build(),
                 contentDescription = stringResource(R.string.film_image),
@@ -329,7 +332,9 @@ private fun MovieCard(
             )
 
             IconButton(
-                onClick = onPlayClick,
+                onClick = {
+                    onMovieClick(movie.id)
+                },
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(18.dp)
@@ -346,7 +351,7 @@ private fun MovieCard(
         Spacer(Modifier.height(10.dp))
 
         Text(
-            text = movieName,
+            text = movie.title,
             color = MaterialTheme.colorScheme.onSurface,
             fontSize = 16.sp,
             fontWeight = FontWeight.Medium,
@@ -360,7 +365,8 @@ private fun MovieCard(
 @Composable
 private fun MoviesRow(
     modifier: Modifier = Modifier,
-    movies: List<Movie>
+    movies: List<Movie>,
+    onMovieClick: (Int) -> Unit
 ) {
     LazyRow(
         modifier = modifier.fillMaxWidth(),
@@ -371,9 +377,9 @@ private fun MoviesRow(
             key = { it.id }
         ) { movie ->
             MovieCard(
-                imageUrl = movie.backdropPath,
-                movieName = movie.title,
-                onPlayClick = {
+                movie = movie,
+                onMovieClick = {id ->
+                    onMovieClick(id)
                 }
             )
         }
@@ -384,7 +390,8 @@ private fun MoviesRow(
 private fun MovieSection(
     modifier: Modifier = Modifier,
     title: String,
-    movies: List<Movie>
+    movies: List<Movie>,
+    onMovieClick: (Int) -> Unit
 ) {
     Text(
         modifier = modifier,
@@ -395,7 +402,8 @@ private fun MovieSection(
     )
     Spacer(Modifier.height(16.dp))
     MoviesRow(
-        movies = movies
+        movies = movies,
+        onMovieClick = onMovieClick
     )
 }
 
@@ -422,14 +430,14 @@ fun ErrorScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text("Something went wrong")
+        Text(stringResource(R.string.something_went_wrong))
 
         Spacer(Modifier.height(16.dp))
 
         Button(
             onClick = onRetry
         ) {
-            Text("Retry")
+            Text(stringResource(R.string.retry))
         }
     }
 }

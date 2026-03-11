@@ -36,4 +36,7 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun getMovie(movieId: Int): Movie {
+        TODO("Not yet implemented")
+    }
 }
