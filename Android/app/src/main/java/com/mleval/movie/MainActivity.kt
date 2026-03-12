@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.mleval.movie.presentation.screens.home.HomeScreen
 import com.mleval.movie.presentation.screens.singin.SingInScreen
 import com.mleval.movie.presentation.ui.theme.MovieTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -17,14 +18,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MovieTheme {
-                SingInScreen(
-                    onSkipClick = {
+                HomeScreen(
+                    onUserClick = {
 
                     },
-                    onForgetPasswordClick = {
+                    onSearchClick = {
 
                     },
-                    onSingUpClick = {
+                    onMovieClick = {
 
                     }
                 )

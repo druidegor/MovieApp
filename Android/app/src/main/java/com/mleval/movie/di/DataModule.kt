@@ -1,8 +1,11 @@
 package com.mleval.movie.di
 
 import com.mleval.movie.data.remote.AuthApiService
+import com.mleval.movie.data.remote.MovieApiService
 import com.mleval.movie.data.repository.AuthRepositoryImpl
+import com.mleval.movie.data.repository.MovieRepositoryImpl
 import com.mleval.movie.domain.repository.AuthRepository
+import com.mleval.movie.domain.repository.MovieRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -26,6 +29,12 @@ interface DataModule {
         impl: AuthRepositoryImpl
     ): AuthRepository
 
+    @Binds
+    @Singleton
+    fun provideMovieRepository(
+        impl: MovieRepositoryImpl
+    ): MovieRepository
+
     companion object {
 
         @Provides
@@ -45,9 +54,11 @@ interface DataModule {
             return json.asConverterFactory("application/json".toMediaType())
         }
 
+
+        @AuthRetrofit
         @Provides
         @Singleton
-        fun provideRetrofit(
+        fun provideAuthRetrofit(
             converter: Converter.Factory
         ): Retrofit {
             return Retrofit.Builder()
@@ -56,11 +67,31 @@ interface DataModule {
                 .build()
         }
 
+        @MovieRetrofit
+        @Provides
+        @Singleton
+        fun provideMovieRetrofit(
+            converter: Converter.Factory
+        ): Retrofit {
+            return Retrofit.Builder()
+                .baseUrl("https://api.themoviedb.org/3/")
+                .addConverterFactory(converter)
+                .build()
+        }
+
         @Provides
         @Singleton
         fun provideApiService(
-            retrofit: Retrofit
+            @AuthRetrofit retrofit: Retrofit
         ): AuthApiService {
+            return retrofit.create()
+        }
+
+        @Provides
+        @Singleton
+        fun provideMovieApiService(
+            @MovieRetrofit retrofit: Retrofit
+        ): MovieApiService {
             return retrofit.create()
         }
     }
