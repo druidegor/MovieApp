@@ -4,7 +4,6 @@ import com.mleval.movie.BuildConfig
 import com.mleval.movie.domain.entity.Trailer
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 
 interface MovieApiService {
